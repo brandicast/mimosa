@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  bot:
+    build: bot
+    container_name: line_bot
+    ports: 
+      - 9999:9999
+    depends_on:
+      - mqtt
+
+  line_notify_agent:
+    build: line_notify_agent  
+    container_name: line_notify_agent
+    depends_on:
+      - mqtt
+
+  mimosa:
+    build: mimosa
+    container_name: mimosa
+    ports:
+      - 9613:9613
+    depends_on:
+      - mqtt
+
+  mqtt:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - type: bind
+        source: ./mqtt/config/
+        target: /mosquitto/config/
+      - type: bind
+        source: ./mqtt/log/
+        target: /mosquitto/log/
+      - type: bind
+        source: ./mqtt/data/
+        target: /mosquitto/data/
+
+  line_notify_service:
+    build: generic_line_notify_service
+    ports: 
+      - 8888:8888
+
+volumes:
+  config:
+  data:
+  log:
