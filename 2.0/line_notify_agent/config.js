@@ -28,7 +28,7 @@ module.exports = {
                 port:1883,
                 clientId: 'line_notify_agent'
             },
-            topic : ' '   // To fit into mqtt model, user {prefix}/{uid}/{event}
+            topic : 'brandon/iot/zwave/philio/event/#'   // To fit into mqtt model, user {prefix}/{uid}/{event}
     },
     line_notify_service: {
             enable: false,
