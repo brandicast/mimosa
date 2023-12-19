@@ -40,13 +40,14 @@ services:
         target: /mosquitto/data/
 
   line_notify_service:
+    container_name: line_notify_service
     build: generic_line_notify_service
     ports: 
       - 8888:8888
     volumes:
       - type: bind
         source: ./token
-        target: ./token
+        target: /opt/line_notify_service/token
 
 volumes:
   config:
