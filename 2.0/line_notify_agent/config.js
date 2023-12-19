@@ -31,7 +31,7 @@ module.exports = {
             topic : 'brandon/iot/zwave/philio/event/#'   // To fit into mqtt model, user {prefix}/{uid}/{event}
     },
     line_notify_service: {
-            enable: false,
+            enable: true,
             url: 'http://line_notify_service:8888/sendMsg',
             service: 'mimosa2' 
     }
