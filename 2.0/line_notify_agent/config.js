@@ -32,7 +32,7 @@ module.exports = {
     },
     line_notify_service: {
             enable: false,
-            url: 'http://localhost:8888/sendMsg',
-            service: 'Generic_Bot' 
+            url: 'http://line_notify_service:8888/sendMsg',
+            service: 'mimosa2' 
     }
 }
