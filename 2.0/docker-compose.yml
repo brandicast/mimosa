@@ -43,6 +43,10 @@ services:
     build: generic_line_notify_service
     ports: 
       - 8888:8888
+    volumes:
+      - type: bind
+        source: ./token
+        target: ./token
 
 volumes:
   config:
