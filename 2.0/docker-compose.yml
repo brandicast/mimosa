@@ -1,7 +1,8 @@
-version: "3.8"
+version: "3.81"
 
 services:
   bot:
+    restart: always
     build: bot
     container_name: line_bot
     ports: 
@@ -10,12 +11,14 @@ services:
       - mqtt
 
   line_notify_agent:
+    restart: always
     build: line_notify_agent  
     container_name: line_notify_agent
     depends_on:
       - mqtt
 
   mimosa:
+    restart: always
     build: mimosa
     container_name: mimosa
     ports:
@@ -24,6 +27,7 @@ services:
       - mqtt
 
   mqtt:
+    restart: always
     image: eclipse-mosquitto
     container_name: mosquitto
     ports:
@@ -40,6 +44,7 @@ services:
         target: /mosquitto/data/
 
   line_notify_service:
+    restart: always
     container_name: line_notify_service
     build: generic_line_notify_service
     ports: 
