@@ -64,8 +64,15 @@ bot.on('message', function (event) {
                         clientId: 'mimosa'
                     };
                     var client = mqtt.connect (config.mqtt.url, opt);
-                    client.publish(config.mqtt.topic,"OPEN");
-                    response = "OK, try to open front door"
+
+                    client.publish('config.mqtt.topic', 'OPEN',  (err) => {
+                        if (err) {
+                          response.text = "Fail to publish to MQ"
+                        } else {
+                          response.text = "OK, try to open front door"
+                        }
+                        client.end()
+                      });
                     break;
                 }
                 default: {
