@@ -15,8 +15,9 @@ var mqtt  = require ('mqtt');
 
 let bot = linebot(config.linebot.configuration);
 
-
 var MEMBERS = {};
+
+var client = null ; 
 
 /*  
     Reference :  See sample message in the bottom
@@ -63,15 +64,18 @@ bot.on('message', function (event) {
                         port:config.mqtt.port,
                         clientId: 'mimosa'
                     };
-                    var client = mqtt.connect (config.mqtt.url, opt);
+                    
+                    if (client == null) 
+                         client = mqtt.connect (config.mqtt.url, opt);
 
-                    client.publish('config.mqtt.topic', 'OPEN',  (err) => {
+                    response =  Object.assign({}, message.text); 
+                    response.text = "OK, try to open front door"
+
+                    client.publish(config.mqtt.topic, 'OPEN',  (err) => {
                         if (err) {
                           response.text = "Fail to publish to MQ"
-                        } else {
-                          response.text = "OK, try to open front door"
-                        }
-                        client.end()
+                        } 
+                        //client.end()
                       });
                     break;
                 }
