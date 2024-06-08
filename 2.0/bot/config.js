@@ -37,7 +37,7 @@ module.exports = {
                 enable: true,
                 url: 'mqtt://mqtt',
                 port: 1883,
-                topic: 'brandon/iot/zwave/philio/event/#',
+                topic: 'brandon/iot/pico/gate',
 
         }
 }

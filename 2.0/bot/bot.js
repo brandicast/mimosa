@@ -11,7 +11,7 @@ const path = require("path");
 let composer = require ("./line_message_formatter.js") ;
 let message = require("./resources/line_message_template.js");
 
-const subscriber = require("./mqtt_subscriber.js");
+var mqtt  = require ('mqtt');
 
 let bot = linebot(config.linebot.configuration);
 
@@ -56,6 +56,14 @@ bot.on('message', function (event) {
                 }
                 case "(raw)" :{
                     response = composer.getRawData() ;
+                    break;
+                }
+                case "(OPEN_FRONT_DOOR)" :{
+                    var opt =  {
+                        port:config.mqtt.port,
+                        clientId: 'mimosa'
+                    };
+                    client.publish(config.mqtt.topic,"OPEN");
                     break;
                 }
                 default: {

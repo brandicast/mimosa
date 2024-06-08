@@ -300,6 +300,15 @@ module.exports = {
                 "type": "action",
                 "action": {
                     "type": "message",
+                    "label": "open front door",
+                    "text": "(OPEN_FRONT_DOOR)"
+                }
+
+            },
+            {
+                "type": "action",
+                "action": {
+                    "type": "message",
                     "label": "status",
                     "text": "(status)"
                 }
