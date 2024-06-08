@@ -63,6 +63,7 @@ bot.on('message', function (event) {
                         port:config.mqtt.port,
                         clientId: 'mimosa'
                     };
+                    var client = mqtt.connect (config.mqtt.url, opt);
                     client.publish(config.mqtt.topic,"OPEN");
                     response = "OK, try to open front door"
                     break;
