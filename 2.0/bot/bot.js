@@ -64,6 +64,7 @@ bot.on('message', function (event) {
                         clientId: 'mimosa'
                     };
                     client.publish(config.mqtt.topic,"OPEN");
+                    response = "OK, try to open front door"
                     break;
                 }
                 default: {
