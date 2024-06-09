@@ -62,7 +62,7 @@ bot.on('message', function (event) {
                 case "(OPEN_FRONT_DOOR)" :{
                     var opt =  {
                         port:config.mqtt.port,
-                        clientId: 'mimosa'
+                        clientId: config.mqtt.client_id
                     };
                     
                     if (client == null) 

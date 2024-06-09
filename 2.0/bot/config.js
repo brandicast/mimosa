@@ -38,6 +38,7 @@ module.exports = {
                 url: 'mqtt://mqtt',
                 port: 1883,
                 topic: 'brandon/iot/pico/gate',
+                client_id: 'linebot'
 
         }
 }
