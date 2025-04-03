@@ -32,6 +32,6 @@ module.exports = {
     },
     ntfy_service: {
             enable: true,
-            url: 'http://192.168.68.57:7777/mimosa/',
+            url: 'http://192.168.68.57:7777/mimosa',  // can not end with /
     }
 }
