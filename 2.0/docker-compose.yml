@@ -1,14 +1,6 @@
 version: "3.81"
 
 services:
-  bot:
-    restart: always
-    build: bot
-    container_name: line_bot
-    ports: 
-      - 9999:9999
-    depends_on:
-      - mqtt
 
   ntfy_agent:
     restart: always
