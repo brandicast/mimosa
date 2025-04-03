@@ -10,10 +10,10 @@ services:
     depends_on:
       - mqtt
 
-  line_notify_agent:
+  ntfy_agent:
     restart: always
-    build: line_notify_agent  
-    container_name: line_notify_agent
+    build: ntfy_agent  
+    container_name: ntfy_agent
     depends_on:
       - mqtt
 
@@ -42,19 +42,3 @@ services:
       - type: bind
         source: ./mqtt/data/
         target: /mosquitto/data/
-
-  line_notify_service:
-    restart: always
-    container_name: line_notify_service
-    build: generic_line_notify_service
-    ports: 
-      - 8888:8888
-    volumes:
-      - type: bind
-        source: ./generic_line_notify_service/token/
-        target: /opt/line_notify_service/token/
-
-volumes:
-  config:
-  data:
-  log:
