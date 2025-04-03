@@ -2,6 +2,18 @@ version: "3.81"
 
 services:
 
+  ntfy:
+    restart: always
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve
+    volumes:
+      - /var/cache/ntfy:/var/cache/ntfy
+      - /etc/ntfy:/etc/ntfy
+    ports:
+      - 7777:80
+
   ntfy_agent:
     restart: always
     build: ntfy_agent  
