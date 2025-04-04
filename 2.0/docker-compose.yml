@@ -1,19 +1,23 @@
 version: "3.81"
 
 services:
-  bot:
-    restart: always
-    build: bot
-    container_name: line_bot
-    ports: 
-      - 9999:9999
-    depends_on:
-      - mqtt
 
-  line_notify_agent:
+  ntfy:
     restart: always
-    build: line_notify_agent  
-    container_name: line_notify_agent
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve
+    volumes:
+      - /var/cache/ntfy:/var/cache/ntfy
+      - /etc/ntfy:/etc/ntfy
+    ports:
+      - 7777:80
+
+  ntfy_agent:
+    restart: always
+    build: ntfy_agent  
+    container_name: ntfy_agent
     depends_on:
       - mqtt
 
@@ -42,19 +46,3 @@ services:
       - type: bind
         source: ./mqtt/data/
         target: /mosquitto/data/
-
-  line_notify_service:
-    restart: always
-    container_name: line_notify_service
-    build: generic_line_notify_service
-    ports: 
-      - 8888:8888
-    volumes:
-      - type: bind
-        source: ./generic_line_notify_service/token/
-        target: /opt/line_notify_service/token/
-
-volumes:
-  config:
-  data:
-  log:
