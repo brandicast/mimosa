@@ -1,0 +1,48 @@
+version: "3.81"
+
+services:
+
+  ntfy:
+    restart: always
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve
+    volumes:
+      - /var/cache/ntfy:/var/cache/ntfy
+      - /etc/ntfy:/etc/ntfy
+    ports:
+      - 7777:80
+
+  ntfy_agent:
+    restart: always
+    build: ntfy_agent  
+    container_name: ntfy_agent
+    depends_on:
+      - mqtt
+
+  mimosa:
+    restart: always
+    build: mimosa
+    container_name: mimosa
+    ports:
+      - 9613:9613
+    depends_on:
+      - mqtt
+
+  mqtt:
+    restart: always
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - type: bind
+        source: ./mqtt/config/
+        target: /mosquitto/config/
+      - type: bind
+        source: ./mqtt/log/
+        target: /mosquitto/log/
+      - type: bind
+        source: ./mqtt/data/
+        target: /mosquitto/data/
