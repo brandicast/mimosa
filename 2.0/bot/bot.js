@@ -11,12 +11,13 @@ const path = require("path");
 let composer = require ("./line_message_formatter.js") ;
 let message = require("./resources/line_message_template.js");
 
-const subscriber = require("./mqtt_subscriber.js");
+var mqtt  = require ('mqtt');
 
 let bot = linebot(config.linebot.configuration);
 
-
 var MEMBERS = {};
+
+var client = null ; 
 
 /*  
     Reference :  See sample message in the bottom
@@ -56,6 +57,26 @@ bot.on('message', function (event) {
                 }
                 case "(raw)" :{
                     response = composer.getRawData() ;
+                    break;
+                }
+                case "(OPEN_FRONT_DOOR)" :{
+                    var opt =  {
+                        port:config.mqtt.port,
+                        clientId: config.mqtt.client_id
+                    };
+                    
+                    if (client == null) 
+                         client = mqtt.connect (config.mqtt.url, opt);
+
+                    response =  Object.assign({}, message.text); 
+                    response.text = "OK, try to open front door"
+
+                    client.publish(config.mqtt.topic, 'OPEN',  (err) => {
+                        if (err) {
+                          response.text = "Fail to publish to MQ"
+                        } 
+                        //client.end()
+                      });
                     break;
                 }
                 default: {
