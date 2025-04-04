@@ -2,3 +2,5 @@
 2.0/line_notify_agent/docker_run.sh
 2.0/mimosa/docker_run.sh
 2.0/ntfy_agent/node_modules/
+2.0/ntfy_agent/logs/
+2.0/ntfy_agent/package-lock.json
